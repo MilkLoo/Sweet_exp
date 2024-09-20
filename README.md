@@ -1,15 +1,24 @@
 # Sweet_exp
 
-### This project is about 3D reconstruction of the human body.
+### Demo
+
+* `Picture demo` 
+<p float="left">
+    <img src="demo/batch_output/image_00010.jpg" alt="Image 1" width="350" height="570">
+    <img src="demo/batch_output/image_00040.jpg" alt="Image 2" width="340" height="570">
+</p>
 
 ---
+* `Video demo`
 
-## Demo Video
+![](/home/ly/yxc_exp_smpl/tool/walk_f_1.gif)
 
-<video width="600" height="400" controls>
-  <source src="https://github.com/MilkLoo/Sweet_exp/raw/main/demo_video/output/walk_f_1.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+
+
+
+
+
+
 
 
 
