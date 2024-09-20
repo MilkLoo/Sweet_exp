@@ -82,20 +82,27 @@ if __name__ == "__main__":
     end_result = {}
 
     # json_file_path = "batch_2d_pose_h36m.json"
-    json_file_path = "batch_2d_pose_oh3d.json"
+    # json_file_path = "batch_2d_pose_oh3d.json"
     # json_file_path = "batch_2d_pose_walk.json"
+    # json_file_path = "batch_2d_pose_gripper.json"
+    json_file_path = "batch_2d_pose_walk_a.json"
     # batch_img_path = osp.join("/media/ly/US100 512G", "datasets", "h36m", "images", "images")
-    batch_img_path = osp.join("/media/ly/US100 512G", "datasets", "OH3D", 'testset', 'images')
+    # batch_img_path = osp.join("/media/ly/US100 512G", "datasets", "OH3D", 'testset', 'images')
+    batch_img_path = osp.join("/home/ly/yxc_exp_smpl/image_output", "walk_a")
     # img_data = ImageData().read_json()
     # img_data_deep = copy.deepcopy(img_data)
-    json_file = "/media/ly/US100 512G/datasets/OH3D/testset/annots.json"
-    with open(json_file,"r") as f:
+    # json_file = "/media/ly/US100 512G/datasets/OH3D/testset/annots.json"
+    # json_file = "/media/ly/US100 512G/datasets/OH3D/testset/annots.json"
+    # json_file = "/home/ly/yxc_exp_smpl/image_output/Json/gripper.json"
+    json_file = "/home/ly/yxc_exp_smpl/image_output/Json/walk_a.json"
+    with open(json_file, "r") as f:
         data = json.load(f)
 
     # for key, value in img_data_deep.items():
     #     image_name_str = value.split("/")[1]
-    for key,value in data.items():
-        image_name_str = key + ".jpg"
+    for key, value in data.items():
+        # image_name_str = key + ".jpg"
+        image_name_str = key
         test_image = osp.join(batch_img_path, image_name_str)
         oriImg = cv2.imread(test_image)  # B,G,R order
         shape_dst = np.min(oriImg.shape[0:2])
@@ -107,7 +114,7 @@ if __name__ == "__main__":
         all_human_coco_coord = get_coco_coord(human_coord_info, human_num)
         my_format = trans_my_project_format_list_batch(all_human_coco_coord)
         end_result[image_name_str] = my_format
-        # end_result[key] = [my_format]
+        end_result[key] = [my_format]
     with open(json_file_path, 'w') as json_file:
         json.dump(end_result, json_file)
     print("Json文件保存成功!")

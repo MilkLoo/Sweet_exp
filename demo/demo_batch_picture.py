@@ -177,14 +177,18 @@ if __name__ == "__main__":
     transform = transforms.ToTensor()
     # pose2d_result_path = './input/2d_pose_result.json'
     # pose2d_result_path = '/home/ly/yxc_exp_smpl/2D_pose_generator_tool/core_code/2d_pose.json'
-    pose2d_result_path = '/home/ly/yxc_exp_smpl/2D_pose_estimation_tool/2d_pose_transformer/batch_2d_pose_walk.json'
+    # pose2d_result_path = '/home/ly/yxc_exp_smpl/2D_pose_estimation_tool/2d_pose_transformer/batch_2d_pose_walk.json'
+    # pose2d_result_path = '/home/ly/yxc_exp_smpl/2D_pose_estimation_tool/2d_pose_transformer/batch_2d_pose_gripper.json'
+    pose2d_result_path = '/home/ly/yxc_exp_smpl/2D_pose_estimation_tool/2d_pose_transformer/batch_2d_pose_walk_a.json'
     # pose2d_result_path = "/home/ly/yxc_exp_smpl/2D_pose_estimation_tool/2d_pose_transformer/2d_pose_est.json"
     with open(pose2d_result_path) as f:
         pose2d_result = json.load(f)
 
     # img_dir = './input/images'
-    img_dir = "/media/ly/US100 512G/datasets/3dpw/data/imageFiles/outdoors_parcours_01"
+    # img_dir = "/media/ly/US100 512G/datasets/3dpw/data/imageFiles/outdoors_parcours_01"
     # img_dir = "/media/ly/US100 512G/datasets/h36m/images/images/s_09_act_02_subact_01_ca_04"
+    img_dir = "/home/ly/yxc_exp_smpl/image_output/walk_a"
+    # img_dir = "/home/ly/yxc_exp_smpl/image_output/gripper"
     # 利用 sorted 函数对结果的键值进行排序，然后遍历排序后的结果
     for img_name in sorted(pose2d_result.keys()):
         img_path = osp.join(img_dir, img_name)
@@ -296,14 +300,11 @@ if __name__ == "__main__":
                                                      color=color)
 
             # Save output mesh
-            file_name = "batch_output/" + img_name
+            file_name = "batch_out_walk_a/" + img_name
             print("file name: ", file_name)
             cv2.imwrite(file_name, original_img)
 
             # Draw input 2d pose
             # tmp_joint_img[-1], tmp_joint_img[-2] = tmp_joint_img[-2].copy(), tmp_joint_img[-1].copy()
             # input = vis_coco_skeleton(input, tmp_joint_img.T, vis_skeleton)
-            # cv2.imwrite(file_name[:-4] + '_2dpose.jpg', input)
-
-
-
+            # cv2.imwrite(file_name[:-4] + '_2dpose.jpg', input)gripper
