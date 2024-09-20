@@ -11,7 +11,7 @@
 ---
 * `Video demo`
 
-![](/home/ly/yxc_exp_smpl/tool/walk_f_1.gif)
+![](tool/walk_f_1.gif)
 
 
 
