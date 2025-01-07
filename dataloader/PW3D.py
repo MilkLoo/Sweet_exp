@@ -24,7 +24,7 @@ class PW3D(torch.utils.data.Dataset):
         print("=" * 20)
         self.transform = transform
         self.data_split = 'validation' if cfg.crowd else 'test'  # data_split  在这里cfg.crowd=True
-        self.data_path = osp.join("/media/ly/US100 512G", "datasets", "3dpw", 'data')
+        self.data_path = osp.join("/media/ly/US100 512G2", "datasets", "3dpw", 'data')
         self.human_bbox_root_dir = osp.join('..', 'data', 'PW3D', 'rootnet_output', 'bbox_root_pw3d_output.json')
 
         # SMPL joint set
@@ -45,7 +45,7 @@ class PW3D(torch.utils.data.Dataset):
         self.h36m_root_joint_idx = self.h36m_joints_name.index('Pelvis')
         self.h36m_eval_joint = (1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 13, 14, 15, 16)
         self.h36m_joint_regressor = np.load(
-            osp.join("/media/ly/US100 512G", "datasets", "h36m", "J_regressor_h36m_correct.npy"))
+            osp.join("/media/ly/US100 512G2", "datasets", "h36m", "J_regressor_h36m_correct.npy"))
 
         # mscoco skeleton
         self.coco_joint_num = 17 + 2  # original: 17, manually added pelvis, neck
@@ -58,7 +58,7 @@ class PW3D(torch.utils.data.Dataset):
             (5, 6), (11, 12))
         self.coco_flip_pairs = ((1, 2), (3, 4), (5, 6), (7, 8), (9, 10), (11, 12), (13, 14), (15, 16))
         self.coco_joint_regressor = np.load(
-            osp.join("/media/ly/US100 512G", 'datasets', 'mscoco', 'J_regressor_coco_hip_smpl.npy'))
+            osp.join("/media/ly/US100 512G2", 'datasets', 'mscoco', 'J_regressor_coco_hip_smpl.npy'))
 
         self.openpose_joints_name = (
             'Nose', 'Neck', 'R_Shoulder', 'R_Elbow', 'R_Wrist', 'L_Shoulder', 'L_Elbow', 'L_Wrist', 'R_Hip', 'R_Knee',

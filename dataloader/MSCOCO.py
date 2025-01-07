@@ -25,9 +25,9 @@ class MSCOCO(torch.utils.data.Dataset):
         self.transform = transform
         self.data_split = 'train' if data_split == 'train' else 'val'
         # self.img_path = osp.join(cfg.root_dir, 'data', 'MSCOCO', 'images') /media/ly/US100 512G/datasets/mscoco
-        self.img_path = osp.join("/media/ly/US100 512G", 'datasets', 'mscoco', 'images')
+        self.img_path = osp.join("/media/ly/US100 512G2", 'datasets', 'mscoco', 'images')
         # self.annot_path = osp.join(cfg.root_dir, 'data', 'MSCOCO', 'annotations')
-        self.annot_path = osp.join("/media/ly/US100 512G", 'datasets', 'mscoco', 'annotations', "annotations")
+        self.annot_path = osp.join("/media/ly/US100 512G2", 'datasets', 'mscoco', 'annotations', "annotations")
         self.rootnet_output_path = osp.join(cfg.root_dir, 'data', 'MSCOCO', 'rootnet_output',
                                             'bbox_root_coco_output.json')
         self.fitting_thr = 3.0  # pixel in cfg.output_hm_shape space
@@ -44,7 +44,7 @@ class MSCOCO(torch.utils.data.Dataset):
         self.coco_flip_pairs = ((1, 2), (3, 4), (5, 6), (7, 8), (9, 10), (11, 12), (13, 14), (15, 16))
         # self.coco_joint_regressor = np.load(osp.join(cfg,root_dir, 'data', 'MSCOCO', 'J_regressor_coco_hip_smpl.npy'))
         self.coco_joint_regressor = np.load(
-            osp.join("/media/ly/US100 512G", 'datasets', 'mscoco', 'J_regressor_coco_hip_smpl.npy'))
+            osp.join("/media/ly/US100 512G2", 'datasets', 'mscoco', 'J_regressor_coco_hip_smpl.npy'))
 
         # smpl skeleton
         self.smpl = SMPL()

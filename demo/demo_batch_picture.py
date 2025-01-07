@@ -81,6 +81,15 @@ def add_neck(joint_coord, joints_name):
     return joint_coord
 
 
+def smooth_frame(vectors, window_size=5):
+    smooth_vectors = np.copy(vectors)
+    num_frame, num_vectors, _ = smooth_vectors.shape
+    for i in range(num_vectors):
+        for j in range(3):
+            smooth_vectors[:, i, j] = np.convolve(vectors[:, i, j], np.ones(window_size) / window_size, mode="same")
+    return smooth_vectors
+
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--gpu', default="0", type=str, dest='gpu_ids')
@@ -178,8 +187,8 @@ if __name__ == "__main__":
     # pose2d_result_path = './input/2d_pose_result.json'
     # pose2d_result_path = '/home/ly/yxc_exp_smpl/2D_pose_generator_tool/core_code/2d_pose.json'
     # pose2d_result_path = '/home/ly/yxc_exp_smpl/2D_pose_estimation_tool/2d_pose_transformer/batch_2d_pose_walk.json'
-    # pose2d_result_path = '/home/ly/yxc_exp_smpl/2D_pose_estimation_tool/2d_pose_transformer/batch_2d_pose_gripper.json'
-    pose2d_result_path = '/home/ly/yxc_exp_smpl/2D_pose_estimation_tool/2d_pose_transformer/batch_2d_pose_walk_a.json'
+    pose2d_result_path = '/home/ly/yxc_exp_smpl/2D_pose_estimation_tool/2d_pose_transformer/batch_2d_pose_gripper.json'
+    # pose2d_result_path = '/home/ly/yxc_exp_smpl/2D_pose_estimation_tool/2d_pose_transformer/batch_2d_pose_walk_a.json'
     # pose2d_result_path = "/home/ly/yxc_exp_smpl/2D_pose_estimation_tool/2d_pose_transformer/2d_pose_est.json"
     with open(pose2d_result_path) as f:
         pose2d_result = json.load(f)
@@ -187,13 +196,21 @@ if __name__ == "__main__":
     # img_dir = './input/images'
     # img_dir = "/media/ly/US100 512G/datasets/3dpw/data/imageFiles/outdoors_parcours_01"
     # img_dir = "/media/ly/US100 512G/datasets/h36m/images/images/s_09_act_02_subact_01_ca_04"
-    img_dir = "/home/ly/yxc_exp_smpl/image_output/walk_a"
-    # img_dir = "/home/ly/yxc_exp_smpl/image_output/gripper"
+    # img_dir = "/home/ly/yxc_exp_smpl/image_output/walk_a"
+    img_dir = "/home/ly/yxc_exp_smpl/image_output/gripper"
+
+    frame_vector = []
+    frame_name = []
+    frame_princpt = []
+    frame_original_img = []
+
     # 利用 sorted 函数对结果的键值进行排序，然后遍历排序后的结果
     for img_name in sorted(pose2d_result.keys()):
+        frame_name.append(img_name)
         img_path = osp.join(img_dir, img_name)
         # 读取到原始图片
         original_img = cv2.imread(img_path)
+        frame_original_img.append(original_img)
         # 进行复制两次
         input = original_img.copy()
         input2 = original_img.copy()
@@ -289,22 +306,41 @@ if __name__ == "__main__":
             # draw output mesh
             # mesh_cam_render = out['mesh_cam_render'][0].cpu().numpy()
             mesh_cam_render = out['mesh_cam_render'][0].cpu().numpy()
+            # print(mesh_cam_render.shape, type(mesh_cam_render))
+            frame_vector.append(mesh_cam_render)
             bbox = out['bbox'][0].cpu().numpy()
+            # print(bbox.shape, type(bbox))
+            # frame_bbox.append(bbox)
             princpt = (bbox[0] + bbox[2] / 2, bbox[1] + bbox[3] / 2)
+            # print(princpt, type(princpt))
+            frame_princpt.append(princpt)
             # original_img = vis_bbox(original_img, bbox, alpha=1)  # for debug
 
             # generate random color
-            color = colorsys.hsv_to_rgb(0.2, 0.5, 1.0)
-            original_img = render_mesh_without_image(original_img, mesh_cam_render, face,
-                                                     {'focal': cfg.focal, 'princpt': princpt},
-                                                     color=color)
-
-            # Save output mesh
-            file_name = "batch_out_walk_a/" + img_name
-            print("file name: ", file_name)
-            cv2.imwrite(file_name, original_img)
+            # color = colorsys.hsv_to_rgb(0.2, 0.5, 1.0)
+            # original_img = render_mesh_without_image(original_img, mesh_cam_render, face,
+            #                                          {'focal': cfg.focal, 'princpt': princpt},
+            #                                          color=color)
+            #
+            # # Save output mesh
+            # file_name = "batch_out_walk_a/" + img_name
+            # print("file name: ", file_name)
+            # cv2.imwrite(file_name, original_img)
 
             # Draw input 2d pose
             # tmp_joint_img[-1], tmp_joint_img[-2] = tmp_joint_img[-2].copy(), tmp_joint_img[-1].copy()
             # input = vis_coco_skeleton(input, tmp_joint_img.T, vis_skeleton)
             # cv2.imwrite(file_name[:-4] + '_2dpose.jpg', input)gripper
+
+    all_frame_vector = np.array(frame_vector)
+    smooth_frame_vector = smooth_frame(all_frame_vector)
+    nums, _, _ = smooth_frame_vector.shape
+    color = colorsys.hsv_to_rgb(0.2, 0.5, 1.0)
+    for i in range(nums):
+        original_img = render_mesh_without_image(frame_original_img[i], smooth_frame_vector[i], face,
+                                                 {'focal': cfg.focal, 'princpt': frame_princpt[i]},
+                                                 color=color)
+        file_name = "batch_out_gripper/" + frame_name[i]
+        print("file name: ", file_name)
+        cv2.imwrite(file_name, original_img)
+

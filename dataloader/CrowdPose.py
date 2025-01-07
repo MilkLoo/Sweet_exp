@@ -25,9 +25,9 @@ class CrowdPose(torch.utils.data.Dataset):
         self.transform = transform
         self.data_split = data_split
         # self.img_path = osp.join('..', 'data', 'CrowdPose', 'images')
-        self.img_path = osp.join("/media/ly/US100 512G", 'datasets', 'CrowdPose', 'images')
+        self.img_path = osp.join("/media/ly/US100 512G2", 'datasets', 'CrowdPose', 'images')
         # self.annot_path = osp.join('..', 'data', 'CrowdPose', 'annotations')
-        self.annot_path = osp.join("/media/ly/US100 512G", 'datasets', 'CrowdPose', 'annotations')
+        self.annot_path = osp.join("/media/ly/US100 512G2", 'datasets', 'CrowdPose', 'annotations')
         self.target_data_split = 'val'
         self.fitting_thr = 5.0  # pixel in cfg.output_hm_shape space
 
@@ -50,7 +50,7 @@ class CrowdPose(torch.utils.data.Dataset):
         self.coco_flip_pairs = ((1, 2), (3, 4), (5, 6), (7, 8), (9, 10), (11, 12), (13, 14), (15, 16))
         # self.coco_joint_regressor = np.load(osp.join('..', 'data', 'MSCOCO', 'J_regressor_coco_hip_smpl.npy'))
         self.coco_joint_regressor = np.load(
-            osp.join("/media/ly/US100 512G", 'datasets', 'mscoco', 'J_regressor_coco_hip_smpl.npy'))
+            osp.join("/media/ly/US100 512G2", 'datasets', 'mscoco', 'J_regressor_coco_hip_smpl.npy'))
 
         # crowdpose skeleton
         self.crowdpose_joints_num = 14 + 1  # manually added pelvis

@@ -1,0 +1,31 @@
+trainset_3d: ['Human36M', "MuCo"]
+trainset_2d: ['CrowdPose', "MSCOCO"]
+#testset: 'PW3D'
+testset: 'OH3D'
+
+
+lr_dec_epoch: [17]
+end_epoch: 25
+lr: 0.0001
+lr_backbone: 0.0001
+lr_dec_factor: 2
+
+num_thread: 16
+train_batch_size: 64
+test_batch_size: 64
+enc_layers: 2
+dec_layers: 4
+weight_decay: 0.01
+# max_norm: 0.1
+use_cls_token: False
+upsample_net: True
+update_bbox: True
+#with_contrastive: False
+with_contrastive: True
+
+crowd: False
+pw3d: True
+pw3d_oc: False
+pw3d_pc: False
+fix_error: False
+

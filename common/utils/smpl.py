@@ -59,7 +59,7 @@ class SMPL(object):
         # add head top
         # self.joint_regressor_extra = np.load(osp.join(cfg.root_dir, "data", "J_regressor_extra.npy"))
         # /media/ly/US100 512G/datasets
-        self.joint_regressor_extra = np.load(osp.join("/media/ly/US100 512G", "datasets", "J_regressor_extra.npy"))
+        self.joint_regressor_extra = np.load(osp.join("/media/ly/US100 512G2", "datasets", "J_regressor_extra.npy"))
         self.joint_regressor = np.concatenate((self.joint_regressor, self.joint_regressor_extra[3:4, :])).astype(
             np.float32)
 

@@ -30,10 +30,10 @@ class Human36M(torch.utils.data.Dataset):
         self.data_split = data_split
         # This dir can use other
         # self.img_dir = osp.join(cfg.root_dir, "data", "Human36M", "images")  /media/ly/US100 512G/datasets/h36m/images
-        self.img_dir = osp.join("/media/ly/US100 512G", "datasets", "h36m", "images", "images")
+        self.img_dir = osp.join("/media/ly/US100 512G2", "datasets", "h36m", "images", "images")
         # self.annot_path = osp.join(cfg.root_dir, "data", "Human36M", "annotations")
         # /media/ly/US100 512G/datasets/h36m/annotations
-        self.annot_path = osp.join("/media/ly/US100 512G", "datasets", "h36m", "annotations")
+        self.annot_path = osp.join("/media/ly/US100 512G2", "datasets", "h36m", "annotations")
         self.pose_2d_path = osp.join("/home/ly/yxc_exp_smpl", "2D_pose_estimation_tool", "2d_pose_transformer")
         # 这个待定
         self.human_bbox_root_dir = osp.join(cfg.root_dir, "data", "Human36M", "rootnet_output",
@@ -76,7 +76,7 @@ class Human36M(torch.utils.data.Dataset):
         # self.h36m_joint_regressor = np.load(osp.join(cfg.root_dir, "data", "Human36M",
         # "J_regressor_h36m_correct.npy"))
         self.h36m_joint_regressor = np.load(
-            osp.join("/media/ly/US100 512G", "datasets", "h36m", "J_regressor_h36m_correct.npy"))
+            osp.join("/media/ly/US100 512G2", "datasets", "h36m", "J_regressor_h36m_correct.npy"))
         self.h36m_coco_common_j_idx = (1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14, 15, 16)  # coco 数据集共有的关键点
 
         # SMPL joint set

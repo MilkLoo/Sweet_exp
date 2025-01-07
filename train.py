@@ -51,7 +51,7 @@ def main():
     trainer._make_batch_generator()
     trainer._make_model()
 
-    scaler = amp.GradScaler(init_scale=args.init_scale, enabled=args.use_mixed_precision)
+    scaler = torch.amp.GradScaler('cuda', init_scale=args.init_scale, enabled=args.use_mixed_precision)
 
     # train
     # 这里在训练第二个模型的时候，使用梯度累计的方式模拟大的batch_size
@@ -67,7 +67,7 @@ def main():
 
             # forward
             trainer.optimizer.zero_grad()
-            with amp.autocast(args.use_mixed_precision):
+            with torch.amp.autocast('cuda',args.use_mixed_precision):
                 loss = trainer.model(inputs, targets, meta_info, 'train')
                 # 这个是第二个模型的
                 intra_nce = loss.pop('intra_nce_0', 0)
@@ -80,7 +80,7 @@ def main():
                 # _loss = sum(loss[k] for k in loss)
 
             # backward
-            with amp.autocast(False):
+            with torch.amp.autocast(False):
                 _loss = scaler.scale(_loss)
                 _loss.backward()
                 scaler.step(trainer.optimizer)

@@ -23,9 +23,9 @@ class MPII(torch.utils.data.Dataset):
         self.data_split = data_split
         # self.img_path = osp.join('..', 'data', 'MPII', 'data', 'images')
         # self.img_path = osp.join("/media/ly/US100 512G", "datasets", "MPII", "images", "images")
-        self.img_path = osp.join("/media/ly/US100 512G", "datasets", "MPII", "images")
+        self.img_path = osp.join("/media/ly/US100 512G2", "datasets", "MPII", "images")
         # self.annot_path = osp.join('..', 'data', 'MPII', 'data', 'annotations')
-        self.annot_path = osp.join("/media/ly/US100 512G", "datasets", "MPII", "annotations", "annotations")
+        self.annot_path = osp.join("/media/ly/US100 512G2", "datasets", "MPII", "annotations", "annotations")
 
         # mpii skeleton
         self.mpii_joint_num = 16

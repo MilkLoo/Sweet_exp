@@ -26,7 +26,7 @@ class OH3D(torch.utils.data.Dataset):
     def __init__(self, transform, data_split):
         print("=" * 20)
         self.transform = transform
-        self.data_path = osp.join("/media/ly/US100 512G", "datasets", "OH3D", 'testset')
+        self.data_path = osp.join("/media/ly/US100 512G2", "datasets", "OH3D", 'testset')
         self.pose_2d_path = osp.join("/home/ly/yxc_exp_smpl", "2D_pose_estimation_tool", "2d_pose_transformer")
         self.data_split = "test"
 
@@ -48,7 +48,7 @@ class OH3D(torch.utils.data.Dataset):
         self.h36m_root_joint_idx = self.h36m_joints_name.index('Pelvis')
         self.h36m_eval_joint = (1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 13, 14, 15, 16)
         self.h36m_joint_regressor = np.load(
-            osp.join("/media/ly/US100 512G", "datasets", "h36m", "J_regressor_h36m_correct.npy"))
+            osp.join("/media/ly/US100 512G2", "datasets", "h36m", "J_regressor_h36m_correct.npy"))
 
         # mscoco skeleton
         self.coco_joint_num = 17 + 2  # original: 17, manually added pelvis, neck
@@ -61,7 +61,7 @@ class OH3D(torch.utils.data.Dataset):
             (5, 6), (11, 12))
         self.coco_flip_pairs = ((1, 2), (3, 4), (5, 6), (7, 8), (9, 10), (11, 12), (13, 14), (15, 16))
         self.coco_joint_regressor = np.load(
-            osp.join("/media/ly/US100 512G", 'datasets', 'mscoco', 'J_regressor_coco_hip_smpl.npy'))
+            osp.join("/media/ly/US100 512G2", 'datasets', 'mscoco', 'J_regressor_coco_hip_smpl.npy'))
         self.conf_thr = 0.05
 
         # 加载数据

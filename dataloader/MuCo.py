@@ -27,11 +27,11 @@ class MuCo(torch.utils.data.Dataset):
         self.transform = transform
         self.data_split = data_split
         # self.img_dir = osp.join('..', 'data', 'MuCo', 'data')
-        self.img_dir = osp.join("/media/ly/US100 512G", 'datasets', 'Muco', 'data')
+        self.img_dir = osp.join("/media/ly/US100 512G2", 'datasets', 'Muco', 'data')
         # self.annot_path = osp.join('..', 'data', 'MuCo', 'data', 'MuCo-3DHP.json')
-        self.annot_path = osp.join("/media/ly/US100 512G", 'datasets', 'Muco', 'data', 'MuCo-3DHP.json')
+        self.annot_path = osp.join("/media/ly/US100 512G2", 'datasets', 'Muco', 'data', 'MuCo-3DHP.json')
         # self.smpl_param_path = osp.join('..', 'data', 'MuCo', 'data', 'smpl_param.json')
-        self.smpl_param_path = osp.join("/media/ly/US100 512G", 'datasets', 'Muco', 'data', 'smpl_param.json')
+        self.smpl_param_path = osp.join("/media/ly/US100 512G2", 'datasets', 'Muco', 'data', 'smpl_param.json')
         self.fitting_thr = 25  # millimeter
 
         # COCO joint set
@@ -56,7 +56,7 @@ class MuCo(torch.utils.data.Dataset):
 
         # H36M joint set
         self.h36m_joint_regressor = np.load(
-            osp.join("/media/ly/US100 512G", "datasets", "h36m", "J_regressor_h36m_correct.npy"))
+            osp.join("/media/ly/US100 512G2", "datasets", "h36m", "J_regressor_h36m_correct.npy"))
         # use h36m joint regressor (only use subset from original muco joint set)
         self.h36m_flip_pairs = ((1, 4), (2, 5), (3, 6), (14, 11), (15, 12), (16, 13))
         self.h36m_joints_name = (
